@@ -9,13 +9,18 @@ describe("Filter function", () => {
     ];
 
     const output = [{ id: 3, url: "https://www.link3.dev" }];
-
     expect(filterByTerm(input, "link")).toEqual(output); //normal test
-
-    expect(filterByTerm(input, "LINK")).toEqual(output); //case sensitive
-
-    expect(filterByTerm(input, "")).toEqual(output); //empty link
-
-    expect(filterByTerm([], "liNk")).toEqual(output); //empty input
+  });
+  test("it should throw an error when the searchTerm is empty string", () => {
+    const input = [{ id: 1, url: "https://www.url1.dev" }];
+    expect(() => {
+      filterByTerm(input, "");
+    }).toThrowError(Error("searchTerm cannot be empty"));
+  });
+  test("it should throw an error when the inputArr is empty", () => {
+    const input = [];
+    expect(() => {
+      filterByTerm(input, "link");
+    }).toThrowError("inputArr cannot be empty");
   });
 });
